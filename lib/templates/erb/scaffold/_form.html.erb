@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%%= simple_form_for(@<%= singular_table_name %>) do |f| %>
+      <%%= f.error_notification  %>
+      <% attributes.each do |attribute| -%>
+        <div class="row">
+          <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
+        </div>
+      <% end -%>
+      <div class="row">
+        <div class="form-actions col-md-12">
+          <%%= f.submit class: 'btn btn-success', value: t('.submit', default: t('global.form.actions.submit')) %>
+        </div>
+      </div>
+    <%% end %>
+  </div>
+</div>

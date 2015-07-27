@@ -1,0 +1,47 @@
+<div class="page-header">
+  <div class="row">
+    <div class="col-md-8">
+      <h1><%%= t '.title'  %></h1>
+    </div>
+    <div class="col-md-4">
+      <div class="header-actions">
+        <%%= link_to icon('plus'), new_<%= singular_table_name %>_path, class: 'btn btn-success', data: { toggle: 'tooltip', container: 'body' }, title: t('<%= plural_table_name %>.actions.new', default: t('global.actions.new')) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <% attributes.each do |attribute| -%>
+          <th><%%= t 'activerecord.attributes.<%= singular_table_name %>.<%= attribute.name %>' %></th>
+        <% end -%>
+        <th><%%= t '.actions', default: t('global.index.actions') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%%= content_tag_for(:tr, @<%= plural_table_name %>) do |<%= singular_table_name %>| %>
+        <% attributes.each do |attribute| -%>
+          <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+        <% end -%>
+        <td>
+          <%%= link_to icon('eye-open'), <%= singular_table_name %>,
+          class: 'btn btn-xs btn-default',
+          title: t('<%= plural_table_name %>.actions.show', default: t('global.actions.show')),
+          data: { toggle: 'tooltip', container: 'body', placement: 'bottom' } %>
+          <%%= link_to icon('pencil'), edit_<%= singular_table_name %>_path(<%= singular_table_name %>),
+          class: 'btn btn-xs btn-primary',
+          title: t('<%= plural_table_name %>.actions.edit', default: t('global.actions.edit')),
+          data: { toggle: 'tooltip', container: 'body', placement: 'bottom' } %>
+          <%%= link_to icon('trash'), <%= singular_table_name %>,  method: :delete,
+          class: 'btn btn-xs btn-danger',
+          title: t('<%= plural_table_name %>.actions.destroy', default: t('global.actions.destroy')),
+          data: { confirm: t('<%= plural_table_name %>.actions.confirm_destroy', default: t('global.actions.confirm_destroy')), toggle: 'tooltip', placement: 'bottom' } %>
+        </td>
+      <%% end %>
+    </tbody>
+  </table>
+</div>
